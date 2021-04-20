@@ -1,0 +1,252 @@
+body,
+ul,
+li,
+h1,
+h2,
+a,
+main {
+  margin: 0; /*h1 h2 li等都有默认的margin和padding需要去掉*/
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  text-align: center;
+  background-color: #f63232;
+  padding: 20px; /*header外边框相对于内侧元素h1的距离*/
+  position: fixed;
+  top: 0;
+  width: 100%; /*设置position后会变小，让其宽度为百分百*/
+  z-index: 1; /* z默认值都为0, 正值为bring it forward, 负值为backward*/
+}
+
+header h1 {
+  color: white;
+  border: 8px solid white;
+  border-radius: 36px;
+  display: inline-block; /*让h1这个block element占据仅需要的空间，不用inline因为不能用margin和padding*/
+  padding: 6px 12px; /*h1外边框相对于内侧content的距离*/
+}
+
+.banner {
+  position: relative; /*下面的 .welcome用absolute需要Parent不为static*/
+}
+
+.banner img {
+  max-width: 100%;
+}
+
+.banner .welcome {
+  background-color: #feb614;
+  color: white;
+  padding: 30px;
+  position: absolute; /*相对于banner固定在左边，且向下百分之30*/
+  left: 0;
+  top: 30%;
+}
+
+.banner h2 {
+  font-size: 75px;
+}
+
+.banner h2 span {
+  font-size: 1.3em; /*  是parent size字体的1.3倍，即74*1.3 */
+}
+
+nav {
+  background-color: #f4f4f4;
+  padding: 20px;
+  position: sticky;
+  top: 100px;
+}
+
+nav ul {
+  white-space: nowrap; /*去除自带的white space*/
+  max-width: 1000px; /*一般屏幕为2000px，设置为1000px让居中后更紧凑*/
+  margin: 0 auto; /*设置margin方式用来居中*/
+}
+
+nav ul li {
+  display: inline-block;
+  width: 25%;
+  font-size: 25px;
+}
+
+nav ul li a {
+  color: #021b05;
+  text-decoration: none; /*去除下划线*/
+}
+
+main {
+  max-width: 100%; /*不让文字超过屏幕宽度，和上面的banner图片同理*/
+  margin: 80px auto;
+  padding: 0 80px;
+  width: 1200px; /*减少宽度让其居中更紧凑*/
+}
+
+article h2 {
+  color: #f63232;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+article p {
+  line-height: 36px; /*行距*/
+  color: #4b4b4b;
+}
+
+.images {
+  list-style-type: none; /*去除list的弹头*/
+  white-space: nowrap; /*去除white space*/
+  margin: 60px auto;
+}
+
+.images li {
+  width: 40%; /*parent宽度的百分比(320px = 800*0.4), 且ul的宽为800px.如正常的p在body中，即为body宽度的百分之50*/
+  margin: 0 5%; /*此时本应占据ul容器100%的宽，但是需要去parent去除默认的space*/
+  display: inline-block;
+}
+
+.images li img {
+  max-width: 100%; /* max-width 基于parent container ，默认是full size图片。 100% of the parent container即为40% ul的宽 (320px)*/
+}
+
+.join {
+  background-color: #f4f4f4;
+  color: #4b4b4b;
+  text-align: center;
+  padding: 60px 0;
+}
+
+.join h2 {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.join p {
+  font-size: 20px;
+}
+
+.join input {
+  padding: 10px 20px;
+  border: 4px solid white;
+  border-radius: 28px;
+  font-size: 25px;
+  margin: 10px 0;
+}
+
+footer {
+  text-align: center;
+  background-color: #f63232;
+  color: white;
+  padding: 15px;
+}
+
+/* Pseudo classes */
+
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
+.images li:hover {
+  position: relative;
+  bottom: 3px;
+}
+
+.join p::selection {
+  background-color: red;
+  color: white;
+}
+
+/* p::after{
+    content: "..."
+} */
+
+/* Responsive design using media query*/
+@media screen and (max-width: 1400px) {
+  .banner .welcome h2 {
+    font-size: 60px;
+  }
+  nav ul li {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .banner .welcome h2 {
+    font-size: 40px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+    .banner .welcome{
+        position: static;
+        text-align: center;
+        padding: 10px;
+    }
+    .banner .welcome h2 {
+      font-size: 25px;
+    }
+
+    .banner .welcome br{
+        display: none;
+    }
+
+    .banner .welcome span{
+        font-size: 1em;  /*1em of the parent font size, thus 25px*/
+    }
+
+    .images li{
+        width: 100%;
+        margin: 20px auto;
+        display: block;
+    }
+
+  }
+
+  @media screen and (max-width: 500px) {
+    nav ul li{
+        font-size: 20px;
+        display: block;
+        width: 100%;
+        margin: 12px 0;
+    }
+    header{
+        position: relative;
+    }
+    nav{
+        top: 0;
+    }
+
+
+
+/* 
+
+--Position & Layout 位置和布局常用指令
+
+position:
+
+static    默认，什么都不做
+relative  相对初始位置 如 {position: relative; left: 20px; bottom: 20px} 相对初始move away from left and bottom 20px
+fixed     相对viewport位置  如{position: fixed; left: 0px; right: 0px;} 相对viewport固定左上角，当我们scrow时
+absolute  相对cloeset parent(最近的position非static单位)位置, 以前的space不再保存 如 {position: absolute; left: 20px; bottom: 20px} 相对parent左移下移20px
+sticky    是static+fiexd的组合，一开始static什么都不做，当viewport scroll到设定值时，固定在该位置
+
+--Pseudo Class & Element 
+
+pseudo class有 :hover, :focus, :valid, :first-child
+
+pseudo element用来inject dynamic element：
+
+::after 和 ::before 在element后面插入content
+::first-letter 选中element的第一个letter
+::selection 选中某element时
+
+-- Media Queries (responsive design),告诉浏览器 how to style at particular viewport dimension
+
+@media screen and (max-width: 1400px) 当用户screen的最大宽度低于1400px 时
+
+meta data让 viewport拥有same width with 用户的device
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+*/
